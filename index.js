@@ -16,7 +16,9 @@ app.set('views',path.join(__dirname,'views'))
 
 
  app.use('/public', E.static('public'));
-
+app.get('/',(req,res)=>{
+res.send("hello")
+})
 
 
 app.get('/home', (req, res) => {
@@ -53,7 +55,7 @@ app.post('/re',async(req,res)=>{
 
 
 
-//Register Route
+
 app.post('/reg',async(req, res) => {
 
    if(!req.body.name || !req.body.email || !req.body.job || !req.body.password || !req.body.cpassword)
@@ -82,7 +84,7 @@ app.post('/reg',async(req, res) => {
 
 
          console.log(name)
-         // const hashedpassword=  await bc.hash(password,10)
+        
 
          const template = model_cons({
             name,
@@ -96,7 +98,7 @@ app.post('/reg',async(req, res) => {
       }
 })
 
-//Login Route
+
 app.post('/login', async(req,res) => {
    const emailexist=  await model_cons.findOne({email:req.body.email})
    // const password_match= bp.compare(req.body.password,emailexist.password)

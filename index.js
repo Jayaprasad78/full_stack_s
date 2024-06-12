@@ -2,12 +2,13 @@ require('./db/connection')
 const model_cons = require('./schema/schema')
 
 
-
+const cors=require('cors')
 const E = require('express')
 const app = E();
 const bp = require('body-parser')
 app.use(bp.urlencoded({ extended: true }));
 app.use(bp.json())
+app.use(cors())
 
 const path=require('path')
 

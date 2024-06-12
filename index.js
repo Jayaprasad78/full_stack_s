@@ -56,47 +56,41 @@ app.post('/re',async(req,res)=>{
 
 
 
-app.post('/reg',async(req, res) => {
-
-   if(!req.body.name || !req.body.email || !req.body.job || !req.body.password || !req.body.cpassword)
-      {
-         return  res.send("kindly fill all the felids")
+app.post('/reg', async (req, res) => {
+   try {
+      
+      if (!req.body.name || !req.body.email || !req.body.job || !req.body.password || !req.body.cpassword) {
+         return res.status(400).json({ error: "Please fill in all fields" });
       }
 
-   const emailexist =  await model_cons.findOne({ email: req.body.email})
-   if(emailexist)
-      {
-         return res.send("email id is exist ,kindly register with different email id")
+     
+      const emailexist = await model_cons.findOne({ email: req.body.email });
+      if (emailexist) {
+         return res.status(409).json({ error: "Email already exists, please use a different email" });
       }
-   else if(req.body.password != req.body.cpassword )
-      {
-         return res.send("password not matching with conifrm password")
+
+     
+      if (req.body.password !== req.body.cpassword) {
+         return res.status(400).json({ error: "Password and confirm password do not match" });
       }
-      else
-      {
 
+     
+      const newUser = new model_cons({
+         name: req.body.name,
+         email: req.body.email,
+         job: req.body.job,
+         password: req.body.password,
+         cpassword: req.body.cpassword
+      });
 
-         const name = req.body.name
-         const email = req.body.email
-         const job = req.body.job
-         const password = req.body.password
-         const cpassword = req.body.cpassword
+      await newUser.save();
+      return res.status(201).json({ message: "Registration successful" });
+   } catch (error) {
+      console.error("Error occurred during registration:", error);
+      return res.status(500).json({ error: "Internal server error" });
+   }
+});
 
-
-         console.log(name)
-        
-
-         const template = model_cons({
-            name,
-            email,
-            job,
-            password,
-            cpassword
-         })
-         template.save()
-         return res.send("registration sucess")
-      }
-})
 
 
 app.post('/login', async(req,res) => {

@@ -16,12 +16,10 @@ app.set('views',path.join(__dirname,'views'))
 
 
  app.use('/public', E.static('public'));
-app.get('/',(req,res)=>{
-res.send("hello")
-})
 
 
-app.get('/home', (req, res) => {
+
+app.get('/', (req, res) => {
    res.render('home')
 })
 

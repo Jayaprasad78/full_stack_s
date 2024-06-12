@@ -2,8 +2,17 @@ require('./db/connection')
 const model_cons = require('./schema/schema')
 
 
-// const cors=require('cors')
-// app.use(cors())
+const cors=require('cors')
+
+
+app.use(cors(
+    {
+        origin: ["https://full-stack-s-ynn6-dhbcfmpsm-jayaprasad78s-projects.vercel.app"],
+        methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow DELETE method
+        allowedHeaders: ['Content-Type', 'Authorization'],
+        credentials: true
+    }
+));
 const E = require('express')
 const app = E();
 const bp = require('body-parser')

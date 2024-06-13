@@ -7,7 +7,7 @@ const cors=require('cors')
 
 app.use(cors(
     {
-        origin: ["https://full-stack-s-ynn6-dhbcfmpsm-jayaprasad78s-projects.vercel.app"],
+        origin: ["https://full-stack-s.vercel.app"],
         methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow DELETE method
         allowedHeaders: ['Content-Type', 'Authorization'],
         credentials: true
